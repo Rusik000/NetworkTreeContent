@@ -22,45 +22,55 @@ namespace NetworkTreeContent.ViewModels
         {
             SearchCommand = new RelayCommand((sender) =>
             {
-                Adress = MainView.SearchTxtBx.Text;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://{Adress}");
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                if (response.StatusCode == HttpStatusCode.OK)
+
+                try
                 {
-                    Stream receiveStream = response.GetResponseStream();
-                    StreamReader readStream = null;
-                    if (String.IsNullOrWhiteSpace(response.CharacterSet))
+
+               
+                if (MainView.SearchTxtBx.Text!=string.Empty)
+                {
+
+                    Adress = MainView.SearchTxtBx.Text;
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"http://{Adress}");
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
-
-                        readStream = new StreamReader(receiveStream);
+                        Stream receiveStream = response.GetResponseStream();
+                        StreamReader readStream = null;
+                        if (String.IsNullOrWhiteSpace(response.CharacterSet))
+                        {
+                            readStream = new StreamReader(receiveStream);
+                        }
+                        else
+                        {
+                            readStream = new StreamReader(receiveStream,
+                                Encoding.GetEncoding(response.CharacterSet));
+                        }
+                        string data = readStream.ReadToEnd();
+                        var doc = new HtmlWeb().Load($"http://{Adress}");
+                        var linkTags = doc.DocumentNode.Descendants("link");
+                        var linkedPages = doc.DocumentNode.Descendants("a")
+                                                          .Select(a => a.GetAttributeValue("href", null))
+                                                          .Where(u => !String.IsNullOrEmpty(u));
+                        string[] arr = linkedPages.ToArray();
+                        MainView.FirstTree.Header = MainView.SearchTxtBx.Text;
+                        MainView.SecondTree.Header = arr[0];
+                        MainView.ThirdTree.Header = arr[1];
+                        MainView.FourthTree.Header = arr[2];
+                        MainView.FivethTree.Header = arr[3];
+                        MainView.SixthTree.Header = arr[4];
+                        MainView.SeventhTree.Header = arr[5];
+                        MainView.EighthTree.Header = arr[6];
+                        MainView.NinethTree.Header = arr[7];
+                        response.Close();
+                        readStream.Close();
                     }
-                    else
-                    {
-                        readStream = new StreamReader(receiveStream,
-                            Encoding.GetEncoding(response.CharacterSet));
-                    }
-
-                    string data = readStream.ReadToEnd();
-
-                    //
-                    var doc = new HtmlWeb().Load($"http://{Adress}");
-                    var linkTags = doc.DocumentNode.Descendants("link");
-                    var linkedPages = doc.DocumentNode.Descendants("a")
-                                                      .Select(a => a.GetAttributeValue("href", null))
-                                                      .Where(u => !String.IsNullOrEmpty(u));
-                    string[] arr = linkedPages.ToArray();
-                    MainView.FirstTree.Header = MainView.SearchTxtBx.Text;
-                    MainView.SecondTree.Header = arr[0];
-                    MainView.ThirdTree.Header = arr[1];
-                    MainView.FourthTree.Header = arr[2];
-                    MainView.FivethTree.Header = arr[3];
-                    MainView.SixthTree.Header = arr[4];
-                    MainView.SeventhTree.Header = arr[5];
-                    MainView.EighthTree.Header = arr[6];
-                    MainView.NinethTree.Header = arr[7];
-                    //
-                    response.Close();
-                    readStream.Close();
+                }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("You enter wrong URL");
+                   
                 }
             });
 

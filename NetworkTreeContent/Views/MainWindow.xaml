@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkTreeContent"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="FindLink" Height="450" Width="800">
+    <Grid Background="SeaShell">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="4*"/>
@@ -19,9 +19,9 @@
             </Border>
         </WrapPanel>
 
-        <Grid Grid.Row="1">
-            <TreeView x:Name="Root" >
-                <TreeViewItem Name="FirstTree" FontSize="22" >
+        <Grid Grid.Row="1" >
+            <TreeView x:Name="Root" Background="Yellow" Foreground="White" >
+                <TreeViewItem Name="FirstTree" FontSize="22"  >
                     <TreeViewItem Name="SecondTree" FontSize="22" >
                         <TreeViewItem Name="ThirdTree" FontSize="22">
                             <TreeViewItem Name="FourthTree" FontSize="22">
