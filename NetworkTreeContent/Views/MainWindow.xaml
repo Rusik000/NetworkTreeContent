@@ -1,0 +1,48 @@
+﻿<Window x:Class="NetworkTreeContent.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetworkTreeContent"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
+            <TextBox x:Name="SearchTxtBx" Width="200" Height="50" VerticalAlignment="Top" Margin="10" FontSize="22" Background="Indigo" Foreground="White"  ></TextBox>
+            <Border Width="100" Height="50" CornerRadius="30" Background="Green" >
+                <Button  BorderBrush="Green" BorderThickness="0" Width="80" Height="30" Content="Search" FontSize="22" Background="Green" Foreground="White" Command="{Binding SearchCommand}"></Button>
+            </Border>
+        </WrapPanel>
+
+        <Grid Grid.Row="1">
+            <TreeView x:Name="Root" >
+                <TreeViewItem Name="FirstTree" FontSize="22" >
+                    <TreeViewItem Name="SecondTree" FontSize="22" >
+                        <TreeViewItem Name="ThirdTree" FontSize="22">
+                            <TreeViewItem Name="FourthTree" FontSize="22">
+                                <TreeViewItem Name="FivethTree" FontSize="22">
+                                    <TreeViewItem Name="SixthTree" FontSize="22">
+                                        <TreeViewItem Name="SeventhTree" FontSize="22">
+                                            <TreeViewItem Name="EighthTree" FontSize="22">
+                                                <TreeViewItem Name="NinethTree" FontSize="22">
+                                                    
+                                                </TreeViewItem>
+                                            </TreeViewItem>
+                                        </TreeViewItem>
+
+                                    </TreeViewItem>
+                                </TreeViewItem>
+                            </TreeViewItem>  
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeViewItem>
+                
+            </TreeView>
+        </Grid>
+    </Grid>
+</Window>
